@@ -40,27 +40,27 @@ var (
 	}
 )
 
-func TestTwoSum1(t *testing.T) {
+func Test_twoSumBruteForce(t *testing.T) {
 
 	for _, row := range table {
-		assert.Equal(t, row.expected, twoSum1(row.param.nums, row.param.target))
+		assert.Equal(t, row.expected, twoSumBruteForce(row.param.nums, row.param.target))
 	}
 }
 
-func BenchmarkTwoSum1(b *testing.B) {
+func Benchmark_twoSumBruteForce(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		twoSum1(table[0].param.nums, table[0].param.target)
+		twoSumBruteForce(table[0].param.nums, table[0].param.target)
 	}
 }
 
-func TestTwoSum2(t *testing.T) {
+func Test_twoSum(t *testing.T) {
 	for _, row := range table {
-		assert.Equal(t, row.expected, twoSum2(row.param.nums, row.param.target))
+		assert.Equal(t, row.expected, twoSum(row.param.nums, row.param.target))
 	}
 }
 
-func BenchmarkTwoSum2(b *testing.B) {
+func Benchmark_twoSum(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		twoSum2(table[0].param.nums, table[0].param.target)
+		twoSum(table[0].param.nums, table[0].param.target)
 	}
 }

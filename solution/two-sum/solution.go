@@ -1,6 +1,6 @@
 package solution
 
-func twoSum1(nums []int, target int) []int {
+func twoSumBruteForce(nums []int, target int) []int {
 	for i := 0; i < len(nums); i++ {
 		for j := i + 1; j < len(nums); j++ {
 			if target == nums[i]+nums[j] {
@@ -11,7 +11,7 @@ func twoSum1(nums []int, target int) []int {
 	return nil
 }
 
-func twoSum2(nums []int, target int) []int {
+func twoSum(nums []int, target int) []int {
 	cache := make(map[int]int, len(nums))
 	for i, x := range nums {
 		if v, ok := cache[target-x]; ok {

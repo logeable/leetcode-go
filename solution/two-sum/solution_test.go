@@ -13,8 +13,8 @@ type param struct {
 
 var (
 	table = []struct {
-		param  param
-		answer []int
+		param    param
+		expected []int
 	}{
 		{
 			param{
@@ -43,8 +43,7 @@ var (
 func TestTwoSum1(t *testing.T) {
 
 	for _, row := range table {
-		ans := twoSum1(row.param.nums, row.param.target)
-		assert.Equal(t, ans, row.answer)
+		assert.Equal(t, row.expected, twoSum1(row.param.nums, row.param.target))
 	}
 }
 
@@ -55,10 +54,8 @@ func BenchmarkTwoSum1(b *testing.B) {
 }
 
 func TestTwoSum2(t *testing.T) {
-
 	for _, row := range table {
-		ans := twoSum2(row.param.nums, row.param.target)
-		assert.Equal(t, ans, row.answer)
+		assert.Equal(t, row.expected, twoSum2(row.param.nums, row.param.target))
 	}
 }
 

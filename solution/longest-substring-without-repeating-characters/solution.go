@@ -29,7 +29,7 @@ func lengthOfLongestSubstring(s string) int {
 	var res int
 	var begin int
 	for i, x := range s {
-		if last, ok := index[x]; ok {
+		if last, ok := index[x]; ok && last >= begin {
 			begin = last + 1
 		}
 		index[x] = i

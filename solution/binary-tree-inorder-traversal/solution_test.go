@@ -17,6 +17,10 @@ func Test_inorderTraversal(t *testing.T) {
 			[]interface{}{1, nil, 2, 3},
 			[]int{1, 3, 2},
 		},
+		{
+			[]interface{}{1, nil, 2, 3, nil, nil, 4, 5, 6},
+			[]int{1, 3, 5, 4, 6, 2},
+		},
 	}
 
 	for _, row := range table {

@@ -2,6 +2,8 @@ package solution
 
 import "github.com/logeable/leetcode-go/types"
 
+type TreeNode = types.TreeNode
+
 /**
  * Definition for a binary tree node.
  * type TreeNode struct {
@@ -10,13 +12,13 @@ import "github.com/logeable/leetcode-go/types"
  *     Right *TreeNode
  * }
  */
-func postorderTraversal(root *types.TreeNode) []int {
+func postorderTraversal(root *TreeNode) []int {
 	var arr []int
 	post(&arr, root)
 	return arr
 }
 
-func post(arr *[]int, root *types.TreeNode) {
+func post(arr *[]int, root *TreeNode) {
 	if root == nil {
 		return
 	}

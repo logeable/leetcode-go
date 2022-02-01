@@ -1,16 +1,12 @@
 package solution
 
-import "sort"
-
 func findDuplicate(nums []int) int {
-
-	newNums := make([]int, len(nums))
-	copy(newNums, nums)
-	sort.Ints(newNums)
-	for i := 0; i < len(newNums)-1; i++ {
-		if newNums[i] == newNums[i+1] {
-			return newNums[i]
+	cache := make(map[int]int)
+	for _, n := range nums {
+		cache[n]++
+		if cache[n] > 1 {
+			return n
 		}
 	}
-	panic("invalid test")
+	panic("invalid nums")
 }

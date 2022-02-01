@@ -1,12 +1,17 @@
 package solution
 
 func findDuplicate(nums []int) int {
-	cache := make(map[int]int)
-	for _, n := range nums {
-		cache[n]++
-		if cache[n] > 1 {
-			return n
+	for i := 1; i < len(nums); {
+		m := nums[i]
+		if m != i {
+			if nums[m] != m {
+				nums[m], nums[i] = nums[i], nums[m]
+			} else {
+				return m
+			}
+		} else {
+			i++
 		}
 	}
-	panic("invalid nums")
+	return nums[0]
 }

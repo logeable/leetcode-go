@@ -35,6 +35,11 @@ func Test_findDuplicate(t *testing.T) {
 			args: args{nums: []int{1, 1, 2}},
 			want: 1,
 		},
+		{
+			name: "5",
+			args: args{nums: []int{1, 4, 6, 6, 6, 2, 3}},
+			want: 6,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

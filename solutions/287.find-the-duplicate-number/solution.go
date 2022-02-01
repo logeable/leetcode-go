@@ -1,17 +1,12 @@
 package solution
 
 func findDuplicate(nums []int) int {
-	for i := 1; i < len(nums); {
-		m := nums[i]
-		if m != i {
-			if nums[m] != m {
-				nums[m], nums[i] = nums[i], nums[m]
-			} else {
-				return m
-			}
-		} else {
-			i++
-		}
+	s, f := 0, 0
+	for s, f = nums[s], nums[nums[f]]; s != f; s, f = nums[s], nums[nums[f]] {
 	}
-	return nums[0]
+
+	s = 0
+	for s, f = nums[s], nums[f]; s != f; s, f = nums[s], nums[f] {
+	}
+	return s
 }

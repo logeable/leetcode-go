@@ -23,6 +23,13 @@ func Test_reversePrint(t *testing.T) {
 			},
 			want: []int{2, 3, 1},
 		},
+		{
+			name: "2",
+			args: args{
+				head: nil,
+			},
+			want: nil,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

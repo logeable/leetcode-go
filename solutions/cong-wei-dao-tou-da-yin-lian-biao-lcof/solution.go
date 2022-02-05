@@ -14,8 +14,11 @@ func reversePrint(head *types.ListNode) []int {
 		return nil
 	}
 
-	r := reversePrint(head.Next)
-	r = append(r, head.Val)
+	var ret []int
+	for head != nil {
+		ret = append([]int{head.Val}, ret...)
+		head = head.Next
+	}
 
-	return r
+	return ret
 }

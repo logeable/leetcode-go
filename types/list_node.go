@@ -46,3 +46,22 @@ func MakeListNode(data []int) *ListNode {
 	}
 	return head
 }
+
+func ListEqual(l1 *ListNode, l2 *ListNode) bool {
+	if l1 == nil && l2 == nil {
+		return true
+	}
+	if l1 == nil || l2 == nil {
+		return false
+	}
+
+	for l1 != nil && l2 != nil {
+		if l1.Val != l2.Val {
+			return false
+		}
+		l1 = l1.Next
+		l2 = l2.Next
+	}
+
+	return l1 == l2 && l1 == nil
+}

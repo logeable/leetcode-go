@@ -1,36 +1,36 @@
 package solution
 
-import (
-	"fmt"
-	"testing"
-
-	"github.com/stretchr/testify/assert"
-)
-
-var (
-	table = []struct {
-		s        string
-		expected string
-	}{
-		{
-			"babad",
-			"bab",
-		},
-		{
-			"cbbd",
-			"bb",
-		},
-	}
-)
-
-func Test_longestPalindromeBruteForce(t *testing.T) {
-	for _, row := range table {
-		assert.Equal(t, row.expected, longestPalindromeBruteForce(row.s), fmt.Sprintf("input: %v", row.s))
-	}
-}
+import "testing"
 
 func Test_longestPalindrome(t *testing.T) {
-	for _, row := range table {
-		assert.Equal(t, row.expected, longestPalindrome(row.s), fmt.Sprintf("input: %v", row.s))
+	type args struct {
+		s string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			name: "example 1",
+			args: args{
+				s: "babad",
+			},
+			want: "bab",
+		},
+		{
+			name: "example 2",
+			args: args{
+				s: "cbbd",
+			},
+			want: "bb",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := longestPalindrome(tt.args.s); got != tt.want {
+				t.Errorf("longestPalindrome() = %v, want %v", got, tt.want)
+			}
+		})
 	}
 }

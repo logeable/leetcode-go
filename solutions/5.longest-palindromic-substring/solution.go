@@ -1,31 +1,30 @@
 package solution
 
-func longestPalindromeBruteForce(s string) string {
-	var res string
+func longestPalindrome(s string) string {
+	dp := make([][]bool, len(s))
 	for i := 0; i < len(s); i++ {
-		for j := i + 1; j < len(s)+1; j++ {
-			t := s[i:j]
-			if isPalindrome(t) && len(t) > len(res) {
-				res = t
+		dp[i] = make([]bool, len(s))
+		dp[i][i] = true
+	}
+	start := 0
+	length := 1
+	for l := 2; l <= len(s); l++ {
+		for i := 0; i < len(s)-l+1; i++ {
+			j := i + l - 1
+			if s[i] == s[j] {
+				if j-i == 1 {
+					dp[i][j] = true
+				} else {
+					dp[i][j] = true && dp[i+1][j-1]
+				}
+			}
+
+			if dp[i][j] && j-i+1 > length {
+				start = i
+				length = l
 			}
 		}
 	}
-	return res
-}
 
-func isPalindrome(s string) bool {
-	i, j := 0, len(s)-1
-
-	for i <= j {
-		if s[i] != s[j] {
-			return false
-		}
-		i++
-		j--
-	}
-	return true
-}
-
-func longestPalindrome(s string) string {
-	panic("not implemented")
+	return s[start : start+length]
 }

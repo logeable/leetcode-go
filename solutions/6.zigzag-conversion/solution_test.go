@@ -1,74 +1,55 @@
 package solution
 
-import (
-	"fmt"
-	"testing"
-
-	"github.com/stretchr/testify/assert"
-)
-
-func dump(z [][]rune) {
-	for _, row := range z {
-		for _, col := range row {
-			if col == 0 {
-				col = ' '
-			}
-			fmt.Printf("%c ", col)
-		}
-		fmt.Println()
-	}
-}
-
-func Test_zigzag(t *testing.T) {
-	s := "LEETCODEISHIRING"
-	numRows := 4
-
-	fmt.Printf("row string: %q, %d rows\n", s, numRows)
-	z := zigzag(s, numRows)
-	fmt.Println("after zigzag:")
-	dump(z)
-}
+import "testing"
 
 func Test_convert(t *testing.T) {
-	table := []struct {
-		s        string
-		numRows  int
-		expected string
+	type args struct {
+		s       string
+		numRows int
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
 	}{
 		{
-			"",
-			1,
-			"",
+			name: "example 1",
+			args: args{
+				s:       "PAYPALISHIRING",
+				numRows: 3,
+			},
+			want: "PAHNAPLSIIGYIR",
 		},
 		{
-			"abc",
-			0,
-			"",
+			name: "example 2",
+			args: args{
+				s:       "PAYPALISHIRING",
+				numRows: 4,
+			},
+			want: "PINALSIGYAHRPI",
 		},
 		{
-			"A",
-			1,
-			"A",
+			name: "one row",
+			args: args{
+				s:       "PAYPALISHIRING",
+				numRows: 1,
+			},
+			want: "PAYPALISHIRING",
 		},
 		{
-			"ABCDEF",
-			1,
-			"ABCDEF",
-		},
-		{
-			"LEETCODEISHIRING",
-			4,
-			"LDREOEIIECIHNTSG",
-		},
-		{
-			"LEETCODEISHIRING",
-			3,
-			"LCIRETOESIIGEDHN",
+			name: "one column",
+			args: args{
+				s:       "PAYPALISHIRING",
+				numRows: 14,
+			},
+			want: "PAYPALISHIRING",
 		},
 	}
-	for _, row := range table {
-		t.Logf("%q: %d", row.s, row.numRows)
-		result := convert(row.s, row.numRows)
-		assert.Equal(t, row.expected, result)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := convert(tt.args.s, tt.args.numRows); got != tt.want {
+				t.Errorf("convert() = %v, want %v", got, tt.want)
+			}
+		})
 	}
 }

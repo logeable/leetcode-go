@@ -1,61 +1,37 @@
 package solution
 
-import "bytes"
+import "math"
 
 func convert(s string, numRows int) string {
-	z := zigzag(s, numRows)
-	var buf bytes.Buffer
-	for _, r := range z {
-		for _, c := range r {
-			if c != 0 {
-				buf.WriteRune(c)
+	if numRows == 1 || numRows == len(s) {
+		return s
+	}
+	table := make([][]byte, numRows)
+	count := numRows*2 - 2
+	times := int(math.Ceil(float64(len(s)) / float64(count)))
+	cols := times * (numRows - 1)
+	for i := range table {
+		table[i] = make([]byte, cols)
+	}
+
+	r, c := 0, 0
+	for i, b := range s {
+		table[r][c] = byte(b)
+		if i%count < numRows-1 {
+			r++
+		} else {
+			r--
+			c++
+		}
+	}
+
+	ret := make([]byte, 0, len(s))
+	for _, row := range table {
+		for _, b := range row {
+			if b > 0 {
+				ret = append(ret, b)
 			}
 		}
 	}
-	return buf.String()
-}
-
-func zigzag(s string, numRows int) [][]rune {
-	if numRows == 0 {
-		return nil
-	}
-	if numRows == 1 {
-		return [][]rune{[]rune(s)}
-	}
-	result := make([][]rune, numRows)
-	sc := numRows - 2 + 1
-	l := 2*numRows - 2
-	col := len(s) / l
-	rem := len(s) % l
-	if rem != 0 {
-		if rem <= numRows {
-			rem = 1
-		} else {
-			rem = 1 + rem - numRows
-		}
-	}
-	c := col*sc + rem
-
-	for i := 0; i < numRows; i++ {
-		result[i] = make([]rune, c)
-		for j := 0; j < c; j++ {
-			result[i][j] = 0
-		}
-	}
-
-	for i, c := range s {
-		m := i % l
-		d := i / l
-		var row, col int
-		if m < numRows {
-			row = m
-			col = (numRows - 1) * d
-		} else {
-			col = (numRows-1)*d + (m - numRows + 1)
-			row = 2*numRows - m - 2
-		}
-		result[row][col] = c
-	}
-
-	return result
+	return string(ret)
 }

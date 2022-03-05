@@ -15,34 +15,25 @@ func levelOrder(root *types.TreeNode) [][]int {
 		return nil
 	}
 
-	level := -1
 	var ret [][]int
-	var arr []int
-	q := []*levelNode{{level: 0, node: root}}
-	for len(q) > 0 {
-		node := q[0]
-		q = q[1:]
-		if node.level > level {
-			if level != -1 {
-				ret = append(ret, arr)
+	q := []*types.TreeNode{root}
+
+	for len(q) != 0 {
+		length := len(q)
+		var layer []int
+		for i := 0; i < length; i++ {
+			node := q[0]
+			q = q[1:]
+			layer = append(layer, node.Val)
+			if node.Left != nil {
+				q = append(q, node.Left)
 			}
-			level = node.level
-			arr = nil
+			if node.Right != nil {
+				q = append(q, node.Right)
+			}
 		}
-		arr = append(arr, node.node.Val)
-		if node.node.Left != nil {
-			q = append(q, &levelNode{level: level + 1, node: node.node.Left})
-		}
-		if node.node.Right != nil {
-			q = append(q, &levelNode{level: level + 1, node: node.node.Right})
-		}
+		ret = append(ret, layer)
 	}
-	ret = append(ret, arr)
 
 	return ret
-}
-
-type levelNode struct {
-	level int
-	node  *types.TreeNode
 }

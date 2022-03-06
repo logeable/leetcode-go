@@ -80,3 +80,13 @@ func MakeTreeNode(data []interface{}) *TreeNode {
 
 	return root
 }
+
+func TreeEqual(t1 *TreeNode, t2 *TreeNode) bool {
+	if t1 == nil && t2 == nil {
+		return true
+	} else if t1 != nil && t2 != nil {
+		return t1.Val == t2.Val && TreeEqual(t1.Left, t2.Left) && TreeEqual(t1.Right, t2.Right)
+	} else {
+		return false
+	}
+}

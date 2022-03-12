@@ -1,24 +1,16 @@
 package solution
 
 func canJump(nums []int) bool {
-	if len(nums) <= 1 {
-		return true
-	}
-
-	for i, n := range nums {
-		if i == len(nums)-1 {
-			return true
+	k := 0
+	for i := 0; i < len(nums); i++ {
+		if i > k {
+			return false
 		}
-		if n == 0 {
-			found := false
-			for j := 0; j < i; j++ {
-				if nums[j] > i-j {
-					found = true
-				}
-			}
-			if !found {
-				return false
-			}
+		if v := i + nums[i]; v > k {
+			k = v
+		}
+		if k >= len(nums)-1 {
+			return true
 		}
 	}
 	return true

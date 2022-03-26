@@ -1,41 +1,39 @@
 package solution
 
-import (
-	"container/heap"
-	"strconv"
-)
-
-type Heap []int
-
-func (h *Heap) Len() int {
-	return len(*h)
-}
-
-func (h *Heap) Less(i int, j int) bool {
-	return strconv.Itoa((*h)[i]) > strconv.Itoa((*h)[j])
-}
-
-func (h *Heap) Swap(i int, j int) {
-	(*h)[i], (*h)[j] = (*h)[j], (*h)[i]
-}
-
-func (h *Heap) Push(x any) {
-	*h = append(*h, x.(int))
-}
-
-func (h *Heap) Pop() any {
-	ret := (*h)[len(*h)-1]
-	*h = (*h)[:len(*h)-1]
-	return ret
-}
+import "fmt"
 
 func findKthNumber(n int, k int) int {
-	h := make(Heap, 0)
-	for i := 1; i <= n; i++ {
-		heap.Push(&h, i)
-		if len(h) > k {
-			heap.Pop(&h)
+	prefix := 1
+	p := 1
+	for p < k {
+		count := getNum(prefix, n)
+		if k-p <= count {
+			prefix *= 10
+			p++
+		} else {
+			prefix += 1
+			p += (count + 1)
 		}
 	}
-	return heap.Pop(&h).(int)
+	return prefix
+}
+
+func getNum(prefix int, n int) int {
+	cur := prefix * 10
+	next := (prefix + 1) * 10
+	count := 0
+	for cur <= n {
+		count += min(next, n+1) - cur
+		cur *= 10
+		next *= 10
+	}
+	fmt.Println(prefix, count)
+	return count
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
 }

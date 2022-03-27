@@ -12,26 +12,14 @@ func missingRolls(rolls []int, mean int, n int) []int {
 	if ntotal > max || ntotal < min {
 		return nil
 	}
-	return nsum(ntotal, n)
-}
 
-func nsum(total int, n int) []int {
-	x := total / n
+	v, r := ntotal/n, ntotal%n
 	ret := make([]int, n)
 	for i := 0; i < n; i++ {
-		ret[i] = x
-	}
-
-	r := (total - x*n)
-	for r > 0 {
-		for i := 0; i < n; i++ {
+		ret[i] = v
+		if i < r {
 			ret[i]++
-			r--
-			if r == 0 {
-				break
-			}
 		}
 	}
-
 	return ret
 }

@@ -15,7 +15,22 @@ func Test_selfDividingNumbers(t *testing.T) {
 		args args
 		want []int
 	}{
-		// TODO: Add test cases.
+		{
+			name: "example 1",
+			args: args{
+				left:  1,
+				right: 22,
+			},
+			want: []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 15, 22},
+		},
+		{
+			name: "example 2",
+			args: args{
+				left:  47,
+				right: 85,
+			},
+			want: []int{48, 55, 66, 77},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

@@ -36,6 +36,14 @@ func Test_nextGreatestLetter(t *testing.T) {
 			},
 			want: 'f',
 		},
+		{
+			name: "example 4",
+			args: args{
+				letters: []byte{'a', 'b'},
+				target:  'z',
+			},
+			want: 'a',
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

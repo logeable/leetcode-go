@@ -1,7 +1,6 @@
 package solution
 
 import (
-	"reflect"
 	"testing"
 )
 
@@ -34,8 +33,18 @@ func Test_combinationSum(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := combinationSum(tt.args.candidates, tt.args.target); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("combinationSum() = %v, want %v", got, tt.want)
+			ans := combinationSum(tt.args.candidates, tt.args.target)
+			if len(tt.want) != len(ans) {
+				t.Errorf("length unexpect")
+			}
+			for _, v := range ans {
+				total := 0
+				for _, t := range v {
+					total += t
+				}
+				if total != tt.args.target {
+					t.Errorf("sum invalid")
+				}
 			}
 		})
 	}

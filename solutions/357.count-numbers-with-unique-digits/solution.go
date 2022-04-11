@@ -1,31 +1,19 @@
 package solution
 
 func countNumbersWithUniqueDigits(n int) int {
-	max := 1
-	for i := 0; i < n; i++ {
-		max *= 10
+	dp := make([]int, n+2)
+	dp[0] = 1
+	dp[1] = 10
+	if n <= 1 {
+		return dp[n]
 	}
-	ans := 0
-	if max > 0 {
-		ans++
-	}
-	for i := 1; i < max; i++ {
-		cache := make(map[int]struct{})
-		n := i
-		found := false
-		for n > 0 {
-			m := n % 10
-			n /= 10
-			if _, ok := cache[m]; ok {
-				found = true
-				break
-			}
-			cache[m] = struct{}{}
+	for i := 2; i <= n; i++ {
+		t := 9
+		for j := 0; j < i-1; j++ {
+			t *= 9 - j
 		}
-		if !found {
-			ans++
-		}
+		t += dp[i-1]
+		dp[i] = t
 	}
-
-	return ans
+	return dp[n]
 }

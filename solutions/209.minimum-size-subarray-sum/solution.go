@@ -1,30 +1,29 @@
 package solution
 
+import "math"
+
 func minSubArrayLen(target int, nums []int) int {
 	l, r := 0, 0
-	c := nums[l]
-	ans := 10000
-	count := 1
-	found := false
-	for l <= r && r < len(nums) {
-		if c < target {
-			r++
-			if r == len(nums) {
-				break
-			}
-			c += nums[r]
-		} else {
-			found = true
-			count = r - l + 1
-			if count < ans {
-				ans = count
-			}
-			c -= nums[l]
+	ans := math.MaxInt
+	sum := 0
+	for r < len(nums) {
+		sum += nums[r]
+		for sum >= target {
+			ans = min(ans, r-l+1)
+			sum -= nums[l]
 			l++
 		}
+		r++
 	}
-	if !found {
+	if ans == math.MaxInt {
 		return 0
 	}
 	return ans
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
 }

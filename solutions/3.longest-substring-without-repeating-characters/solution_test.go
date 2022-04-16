@@ -1,60 +1,43 @@
 package solution
 
-import (
-	"fmt"
-	"testing"
-
-	"github.com/stretchr/testify/assert"
-)
-
-var (
-	table = []struct {
-		arg      string
-		expected int
-	}{
-		{
-			"abcabcbb",
-			3,
-		},
-		{
-			"bbbbb",
-			1,
-		},
-		{
-			"pwwkew",
-			3,
-		},
-		{
-			"",
-			0,
-		},
-		{
-			"abba",
-			2,
-		},
-	}
-)
-
-func Test_lengthOfLongestSubstringBruteForce(t *testing.T) {
-	for _, row := range table {
-		assert.Equal(t, row.expected, lengthOfLongestSubstringBruteForce(row.arg), fmt.Sprintf("input: %v", row.arg))
-	}
-}
+import "testing"
 
 func Test_lengthOfLongestSubstring(t *testing.T) {
-	for _, row := range table {
-		assert.Equal(t, row.expected, lengthOfLongestSubstring(row.arg), fmt.Sprintf("input: %v", row.arg))
+	type args struct {
+		s string
 	}
-}
-
-func Benchmark_lengthOfLongestSubstringBruteForce(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		lengthOfLongestSubstringBruteForce(table[0].arg)
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "example 1",
+			args: args{
+				s: "abcabcbb",
+			},
+			want: 3,
+		},
+		{
+			name: "example 2",
+			args: args{
+				s: "bbbbb",
+			},
+			want: 1,
+		},
+		{
+			name: "example 3",
+			args: args{
+				s: "pwwkew",
+			},
+			want: 3,
+		},
 	}
-}
-
-func Benchmark_lengthOfLongestSubstring(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		lengthOfLongestSubstring(table[0].arg)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := lengthOfLongestSubstring(tt.args.s); got != tt.want {
+				t.Errorf("lengthOfLongestSubstring() = %v, want %v", got, tt.want)
+			}
+		})
 	}
 }

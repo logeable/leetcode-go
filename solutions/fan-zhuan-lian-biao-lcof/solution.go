@@ -9,15 +9,26 @@ import "github.com/logeable/leetcode-go/types"
  *     Next *ListNode
  * }
  */
-func reverseList(head *types.ListNode) *types.ListNode {
-	p := head
-	prev := (*types.ListNode)(nil)
-	for p != nil {
-		n := p.Next
-		p.Next = prev
-		prev = p
-		p = n
-	}
 
+type ListNode = types.ListNode
+
+func reverseList(head *ListNode) *ListNode {
+	var prev *ListNode
+	for head != nil {
+		next := head.Next
+		head.Next = prev
+		prev = head
+		head = next
+	}
 	return prev
+}
+
+func reverseListRecursive(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+	p := reverseList(head.Next)
+	head.Next.Next = head
+	head.Next = nil
+	return p
 }
